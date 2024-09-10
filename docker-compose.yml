@@ -1,0 +1,27 @@
+services:
+  db:
+    image: alpine
+    command: >
+      /bin/sh -c "apk add --no-cache sqlite && 
+      sqlite3 /data/mydatabase.sqlite &&
+      while true; do sleep 10000; done"
+    volumes:
+      - db_data:/data
+    networks:
+      - dbnet
+
+  backup:
+    image: busybox
+    volumes:
+      - db_data:/backup
+    command: >
+      /bin/sh -c "while true; do sleep 86400 && 
+      cp /data/mydatabase.sqlite /backup/mydatabase_$(date +%Y%m%d%H%M%S).sqlite; 
+      done"
+
+networks:
+  dbnet:
+
+volumes:
+  db_data:
+    driver: local
