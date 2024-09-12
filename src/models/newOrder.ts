@@ -9,7 +9,7 @@ export interface NewOrder {
     state?: string;
     cookingStatus?: string;
     observation?: string;
-    orders: Order[];
+    orders?: Order[];
     createdAt: Date;
   }
   
