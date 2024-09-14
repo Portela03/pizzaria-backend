@@ -31,6 +31,17 @@ export const newOrder = async (req: Request, res: Response) => {
         cookingStatus,
         observation,
         createdAt,
+        ...(orders && {
+          orders: {
+            create: orders.map((order: Order) => ({
+              quantity: order.quantity,
+              price: order.price,
+            })),
+          },
+        }),
+      },
+      include: {
+        orders: true, 
       },
     });
     res.status(201).json(newOrders);
@@ -41,7 +52,11 @@ export const newOrder = async (req: Request, res: Response) => {
 };
 export const getOrder = async (req: Request, res: Response) => {
   try {
-    const order = await prisma.newOrder.findMany();
+    const order = await prisma.newOrder.findMany({
+      include: {
+        orders: true, 
+      },
+    });
     res.status(201).json(order);
   } catch (error){
     res.status(501).json("Erro ao pegar pedidos")

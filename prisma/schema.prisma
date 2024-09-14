@@ -16,7 +16,7 @@ model newOrder {
   complement     String?
   neighborhood   String?
   state          String?
-  cookingStatus  String?     
+  cookingStatus  Boolean     
   observation    String? 
   orders         order[]     @relation("NewOrderToOrder")
   createdAt      DateTime    @default(now())

@@ -7,7 +7,7 @@ export interface NewOrder {
     complement?: string;
     neighborhood?: string;
     state?: string;
-    cookingStatus?: string;
+    cookingStatus: boolean;
     observation?: string;
     orders?: Order[];
     createdAt: Date;
